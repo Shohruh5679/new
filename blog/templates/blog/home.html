@@ -1,0 +1,277 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Madrid Blog</title>
+    <link rel="icon" href="{% static 'images/logo.png' %}">
+    <style>
+        /* 🔥 Harakatlanadigan fon */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url("{% static 'images/background.jpg' %}") no-repeat center center/cover;
+            color: white;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            position: relative;
+            animation: bgMove 40s linear infinite;
+            overflow-x: hidden;
+        }
+
+        @keyframes bgMove {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 0;
+        }
+
+        header, main, footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 🔥 Loader sahifa */
+        #loader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #0b0b0b 30%, #000 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 9999;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+
+        .loader-logo {
+            width: 130px;
+            height: 130px;
+            background: url("{% static 'images/logo.png' %}") no-repeat center center/contain;
+            animation: pulseLogo 2s infinite ease-in-out;
+        }
+
+        .loader-text {
+            margin-top: 20px;
+            font-size: 22px;
+            color: gold;
+            letter-spacing: 2px;
+            animation: fadeInText 2s infinite alternate;
+        }
+
+        @keyframes pulseLogo {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px gold); }
+            50% { transform: scale(1.15); filter: drop-shadow(0 0 25px #fff700); }
+        }
+
+        @keyframes fadeInText {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        /* 🔥 Header */
+        header {
+            padding: 30px 0;
+            animation: fadeInDown 1.5s ease-in-out;
+        }
+
+        header img {
+            width: 160px;
+            height: auto;
+            border-radius: 20px;
+            transition: transform 0.4s ease;
+            animation: pulse 3s infinite ease-in-out;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        nav {
+            margin-top: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: gold;
+            font-weight: bold;
+            margin: 0 15px;
+            font-size: 1.1em;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        nav a:hover {
+            color: white;
+            text-shadow: 0 0 10px gold;
+        }
+
+        /* 🔥 Asosiy matn */
+        h1 {
+            font-size: 2.5em;
+            margin-top: 30px;
+            text-shadow: 0 0 15px rgba(255,255,255,0.4);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px gold; }
+            100% { text-shadow: 0 0 25px gold; }
+        }
+
+        .news {
+            margin-top: 40px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .news img {
+            border-radius: 15px;
+            margin: 15px 0;
+            box-shadow: 0 0 25px rgba(0,0,0,0.5);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .news img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.4);
+        }
+
+        .news p {
+            font-size: 1.1em;
+            color: #f0f0f0;
+            width: 80%;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        /* 🔥 Footer */
+        footer {
+            margin-top: 60px;
+            padding: 20px;
+            background-color: rgba(28, 37, 65, 0.85);
+            font-size: 0.9em;
+            border-top: 2px solid gold;
+            animation: fadeInUp 1.5s ease-in-out;
+        }
+
+        /* 🔥 Animatsiyalar */
+        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+        @keyframes fadeInUp { from {opacity: 0; transform: translateY(20px);} to {opacity: 1; transform: translateY(0);} }
+        @keyframes fadeInDown { from {opacity: 0; transform: translateY(-20px);} to {opacity: 1; transform: translateY(0);} }
+    </style>
+</head>
+<body>
+
+    <!-- 🌀 Yuklanish -->
+    <div id="loader">
+        <div class="loader-logo"></div>
+        <div class="loader-text">Real Madrid yuklanmoqda...</div>
+    </div>
+
+    <!-- 🏆 Asosiy kontent -->
+    <header>
+        <img src="{% static 'images/logo.png' %}" alt="Real Madrid">
+        <nav>
+            <a href="/">🏠 Bosh sahifa</a>
+            <a href="/trophies/">🏆 Sovrinlar</a>
+            <a href="/players/">⚽ Futbolchilar</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>⚽ REAL MADRID YANGILIKLARI ⚽</h1>
+
+        <div class="news">
+            {% if news_list %}
+                {% for news in news_list %}
+                    <h2>{{ news.title }}</h2>
+                    {% if news.image %}
+                        <img src="{{ news.image.url }}" alt="{{ news.title }}" width="400"><br>
+                    {% endif %}
+                    <p>{{ news.content }}</p>
+                    <hr>
+                {% endfor %}
+            {% else %}
+                <p>Hozircha yangiliklar mavjud emas 😅</p>
+            {% endif %}
+        </div>
+    </main>
+
+    <footer>
+        © 2025 Real Madrid Blog | Ishlab chiqdi: Shohruh Yovbosarov
+    </footer>
+
+    <!-- 🎵 Musiqa (Hala Madrid) -->
+    <audio id="halaMadrid" preload="auto">
+        <source src="{% static 'audio/hala_madrid.mp3' %}" type="audio/mpeg">
+    </audio>
+
+    <!-- 🔥 JS -->
+    <script>
+        window.addEventListener("load", () => {
+            const loader = document.getElementById("loader");
+            const music = document.getElementById("halaMadrid");
+
+            setTimeout(() => {
+                loader.style.opacity = "0";
+                loader.style.visibility = "hidden";
+                music.play().catch(err => console.log("Ovoz autoplay to‘silgan:", err));
+            }, 2500);
+        });
+    </script>
+<!-- Audio qo‘shiq -->
+<audio id="bg-music" loop>
+    <source src="{% static 'audio/hala_madrid.mp3' %}" type="audio/mpeg">
+    Sizning brauzeringiz audio qo‘llab-quvvatlamaydi.
+</audio>
+
+<!-- Tugma -->
+<div id="music-btn-container" style="position: fixed; bottom: 30px; right: 30px; z-index: 9999;">
+    <button id="music-btn" style="
+        background: #1db954; 
+        color: white; 
+        border: none; 
+        border-radius: 50%;
+        width: 60px; 
+        height: 60px; 
+        font-size: 22px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    ">
+        ▶
+    </button>
+</div>
+
+<script>
+    const btn = document.getElementById('music-btn');
+    const audio = document.getElementById('bg-music');
+    let playing = false;
+
+    btn.addEventListener('click', () => {
+        if (!playing) {
+            audio.play();
+            btn.textContent = '⏸';
+            btn.style.transform = 'scale(1.1)';
+        } else {
+            audio.pause();
+            btn.textContent = '▶';
+            btn.style.transform = 'scale(1)';
+        }
+        playing = !playing;
+    });
+</script>
+
+</body>
+</html>

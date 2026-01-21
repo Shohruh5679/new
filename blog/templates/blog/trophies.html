@@ -1,0 +1,200 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Madrid Sovrinlari</title>
+    <link rel="icon" href="{% static 'images/realmadrid.png' %}">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url("{% static 'images/background.jpg' %}") no-repeat center center/cover;
+            color: white;
+            margin: 0;
+            text-align: center;
+            position: relative;
+            animation: bgMove 40s linear infinite;
+        }
+
+        /* 🔥 Fon harakati */
+        @keyframes bgMove {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        /* qorong‘i effekt */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 0;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        header, main, footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            background: rgba(255, 215, 0, 0.08);
+            padding: 25px 0;
+            animation: fadeInDown 1.5s ease-in-out;
+        }
+
+        header img {
+            width: 140px;
+            margin-top: 10px;
+            border-radius: 12px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+            animation: fadeIn 2s ease-in-out, pulse 4s infinite ease-in-out;
+        }
+
+        header img:hover {
+            transform: scale(1.07);
+            box-shadow: 0 0 40px gold;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #FFD700;
+            font-weight: bold;
+            font-size: 18px;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            animation: fadeIn 2.5s ease-in-out;
+        }
+
+        nav a:hover {
+            color: white;
+            text-shadow: 0 0 12px gold;
+        }
+
+        /* ✨ Sarlavha — Oltin yaltirash effekti */
+        h1 {
+            margin-top: 25px;
+            font-size: 34px;
+            background: linear-gradient(90deg, #FFD700, #FFF8DC, #FFD700);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s linear infinite, fadeInUp 1.5s ease-in-out;
+            text-shadow: 0 0 20px rgba(255,255,255,0.3);
+        }
+
+        @keyframes shimmer {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .trophy {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            margin: 25px auto;
+            padding: 20px;
+            width: 60%;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            animation: fadeInUp 1.5s ease-in-out;
+        }
+
+        .trophy:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.4);
+        }
+
+        .trophy h2, .trophy p {
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .trophy img {
+            border-radius: 15px;
+            margin-top: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeIn 2.5s ease-in-out;
+        }
+
+        .trophy img:hover {
+            transform: scale(1.07);
+            box-shadow: 0 0 35px gold;
+        }
+
+        footer {
+            margin-top: 60px;
+            background-color: rgba(0, 0, 0, 0.85);
+            padding: 15px;
+            color: #ccc;
+            font-size: 14px;
+            border-top: 2px solid gold;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        /* 🔥 Animatsiyalar */
+        @keyframes fadeIn {
+            from { opacity: 0; } to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="{% static 'images/logo.png' %}" alt="Real Madrid">
+        <nav>
+            <a href="/">🏠 Bosh sahifa</a>
+            <a href="/trophies/">🏆 Sovrinlar</a>
+            <a href="/players/">👟 Futbolchilar</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>🏆 Real Madrid Sovrinlari 🏆</h1>
+
+        {% if trophies %}
+            {% for trophy in trophies %}
+                <div class="trophy">
+                    <h2>{{ trophy.name }}</h2>
+                    <p><strong>Yil:</strong> {{ trophy.year }}</p>
+                    {% if trophy.image %}
+                        <img src="{{ trophy.image.url }}" alt="{{ trophy.name }}" width="200">
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Hozircha sovrinlar ma’lumotlari mavjud emas 😔</p>
+        {% endif %}
+    </main>
+
+    <footer>
+        © 2025 Real Madrid Blog | Ishlab chiqdi: Shohruh Yovbosarov
+    </footer>
+
+</body>
+</html>
+

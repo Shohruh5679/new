@@ -1,0 +1,1 @@
+web: gunicorn real_madrid_blog.wsgi:application
